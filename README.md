@@ -1,6 +1,10 @@
 npm install --save styled-components
 npm install react-router-dom
-
+npm install firebase
+npm install @reduxjs/toolkit
+npm install --save react-redux
+npm install redux
+install jwt-decode
 
 # Getting Started with Create React App
 
