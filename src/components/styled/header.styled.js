@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const StyledHeader = styled.header`
+  font-family: "Source Sans Pro", sans-serif;
   background-color: #232327;
-  height: 90px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,6 +12,7 @@ export const StyledHeader = styled.header`
     height: 70%;
   }
   p {
+    display: ${({ display }) => display};
     font-size: 20px;
     color: #56bab7;
     border: 1px solid #56bab7;

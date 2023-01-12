@@ -20,7 +20,7 @@ function MainPage() {
       <Container width="60%">
         <QuizComponent />
       </Container>
-      <Container width="40%" border="1px solid white" br="5px" bi={wallpaper}>
+      <Container width="40%" border="1px solid white" br="5px" bi={wallpaper} fd = 'column'>
         <ChatComponent />
       </Container>
      

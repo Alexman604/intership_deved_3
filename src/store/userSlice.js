@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   userName: null,
   userImage: null,
-  userId: null,
+  userIdLogged: null,
 };
 
 const userSlice = createSlice({
@@ -13,12 +13,12 @@ const userSlice = createSlice({
     loginUser(state, action) {
       state.userName = action.payload.userName;
       state.userImage = action.payload.userImage;
-      state.userId = action.payload.userId;
+      state.userIdLogged = action.payload.userId;
     },
     logoutUser(state) {
       state.userName = null;
       state.userImage = null;
-      state.userId = null;
+      state.userIdLogged = null;
     },
   },
 });
