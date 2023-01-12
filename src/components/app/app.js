@@ -1,18 +1,16 @@
 import Header from "../header/header";
-
 import LoginPage from "../loginPage/loginPage";
 import MainPage from "../mainPage/mainPage";
 import { Routes, Route, Navigate } from "react-router-dom";
-import "../../firebase/firebase"
+import "../../firebase/firebase";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../../store/useAuth";
 import { loginUser } from "../../store/userSlice";
 import { useEffect } from "react";
 
 function App() {
-
- const dispatch = useDispatch();
- const { isAuth } = useAuth();
+  const dispatch = useDispatch();
+  const { isAuth } = useAuth();
 
   const getDataFromLS = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
@@ -23,10 +21,8 @@ function App() {
   };
 
   useEffect(() => {
-
     getDataFromLS();
   }, []);
-
 
   return (
     <Routes>

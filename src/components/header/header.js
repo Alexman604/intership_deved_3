@@ -5,28 +5,28 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../store/userSlice";
 import { getAuth, signOut } from "firebase/auth";
+import { useAuth } from "../../store/useAuth";
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = getAuth();
+  const { isAuth } = useAuth();
+
   const onLogOut = () => {
     dispatch(logoutUser());
     localStorage.removeItem("userData");
     navigate("/login");
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
-        console.log("logout ok");
+        // console.log("logout ok");
       })
-      .catch((error) => {
-        // An error happened.
-      });
+      .catch((error) => {});
   };
 
   return (
     <>
-      <StyledHeader>
+      <StyledHeader display={!isAuth ? "none" : null}>
         <img src={logo} alt="logo" />
         <p onClick={() => onLogOut()}>Logout</p>
       </StyledHeader>
