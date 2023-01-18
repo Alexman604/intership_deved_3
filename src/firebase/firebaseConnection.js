@@ -35,3 +35,14 @@ export function addQuizToDb(data) {
 export async function addQuestion(question) {
   await addDoc(quizRef, question);
 }
+
+
+// test async
+export const getQuestionsTEST = async () => {
+  const querySnapshot = await getDocs(quizRef);
+
+  return querySnapshot.forEach((doc) => {
+    return { id: doc.id, ...doc.data() };
+    // doc.data() is never undefined for query doc snapshots
+  });
+};

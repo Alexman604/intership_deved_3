@@ -25,7 +25,7 @@ const Results = () => {
   const updFirestoreQuiz = () => {
     //delete all questions from firestore
     console.log("questions deleted");
-    //  deleteQuestionsFromDb();
+      deleteQuestionsFromDb();
      dispatch(changeStatus("beforeStart"));
   };
 
