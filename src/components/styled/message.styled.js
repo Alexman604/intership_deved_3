@@ -8,7 +8,7 @@ export const StyledMessage = styled.div`
   width: 70%;
   margin: 5px 10px;
   align-items: center;
-
+  
   img {
     height: 35px;
     border-radius: 50%;

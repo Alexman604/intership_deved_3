@@ -18,4 +18,14 @@ export const Container = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  span {
+
+
+    color: ${({ color }) => color};
+
+    &:hover{
+      cursor: pointer;
+      color: grey;
+    }
+  }
 `;

@@ -17,7 +17,7 @@ function MainPage() {
 
   return (
     <Container minh="calc(100vh - 110px)">
-      <Container width="60%">
+      <Container width="60%" fd = "column">
         <QuizComponent />
       </Container>
       <Container width="40%" border="1px solid white" br="5px" bi={wallpaper} fd = 'column'>

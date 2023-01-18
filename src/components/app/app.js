@@ -7,6 +7,9 @@ import { useDispatch } from "react-redux";
 import { useAuth } from "../../store/useAuth";
 import { loginUser } from "../../store/userSlice";
 import { useEffect } from "react";
+import { fetchQuestions } from "../../store/quizSlice";
+import RegisterPage from "../loginPage/registerPage";
+import SignInPage from "../loginPage/signInPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,11 +25,14 @@ function App() {
 
   useEffect(() => {
     getDataFromLS();
+    dispatch(fetchQuestions());
   }, []);
 
   return (
     <Routes>
       <Route path="/" element={<Header />}>
+        <Route path="/registration" element={<RegisterPage />} />
+        <Route path="/signIn" element={<SignInPage />} />
         <Route index element={<MainPage />} />
         <Route path="/login" exact element={!isAuth ? <LoginPage /> : <Navigate to="/" />} />
       </Route>

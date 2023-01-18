@@ -1,13 +1,21 @@
-import React from 'react'
+import { useSelector } from "react-redux";
+import Countdown from "./countdown";
+import QizLoop from "./qizLoop";
+import ReadyToStart from "./readyToStart";
+import Results from "./results";
 
 function QuizComponent() {
-  return (
-    <div>
-      <p>Ready to start Quiz</p>
-      <button>cancel</button>
-    </div>
-    
-  )
+  const quizStatus = useSelector((state) => state.questions.quizStatus);
+
+  // console.log("current status", quizStatus);
+
+  if (quizStatus === "beforeStart") return <ReadyToStart />;
+
+  if (quizStatus === "ready") return <Countdown />;
+
+  if (quizStatus === "start") return <QizLoop />;
+
+  if (quizStatus === "result") return <Results />;
 }
 
-export default QuizComponent
+export default QuizComponent;

@@ -26,7 +26,7 @@ function ChatComponent() {
 
   const renderMessages = (arr) => {
     if (arr.length === 0) {
-      return <h5 className="text-center mt-5">"No messages found"</h5>;
+      return <h5>"No messages found"</h5>;
     }
 
     return arr[0].map(({ postId, ...props }) => {
