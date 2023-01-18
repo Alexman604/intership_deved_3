@@ -25,7 +25,7 @@ const Results = () => {
     //delete all questions from firestore
     console.log("questions deleted");
 
-      deleteQuestionsFromDb();
+      dispatch(deleteQuestionsFromDb());
       deleteQuestionsFromStore()
      dispatch(changeStatus("beforeStart"));
   };
