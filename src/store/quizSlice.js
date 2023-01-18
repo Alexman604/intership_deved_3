@@ -23,9 +23,11 @@ export const quizSlice = createSlice({
       state.scores = state.scores + 1;
     },
     changeStatus: (state, action) => {
+      console.log(action.payload);
       state.quizStatus = action.payload;
     },
     setQuestions: (state, action) => {
+      console.log(action.payload)
       state.questions = [...state.questions, action.payload];
     },
     deleteQuestionsFromStore: (state) => {

@@ -26,9 +26,11 @@ function Countdown() {
         console.log("getting questions from API and saving to store and export to DB");
         dispatch(fetchQuestions());
       } else {
-        console.log("adding to store");
+        
+       
         querySnapshot.forEach((doc) => {
-          setQuestions(doc.data());
+          console.log("adding to store", doc.data());
+         dispatch( setQuestions(doc.data()));
         });
       }
     };

@@ -15,9 +15,9 @@ function QizLoop() {
   const [result, setResult] = useState(0);
 
 
-  // console.log(questions);
+   console.log(questions);
 
-  //console.log(answers);
+  console.log(answers);
 
   const onButton = (e) => {
     if (e.target.name === questions[currentQuestionIndex].correct_answer) {
