@@ -6,16 +6,21 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from "../../store/userSlice";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuth } from "../../store/useAuth";
+import { removeUserFromDB } from "../../firebase/firebaseConnection";
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = getAuth();
-  const { isAuth } = useAuth();
+  const { isAuth, userIdLogged } = useAuth();
+
+  // console.log(userIdLogged);
 
   const onLogOut = () => {
+    removeUserFromDB(userIdLogged); 
     dispatch(logoutUser());
     localStorage.removeItem("userData");
+
     navigate("/login");
     signOut(auth)
       .then(() => {

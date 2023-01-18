@@ -7,7 +7,6 @@ import Results from "./results";
 function QuizComponent() {
   const quizStatus = useSelector((state) => state.questions.quizStatus);
 
-  // console.log("current status", quizStatus);
 
   if (quizStatus === "beforeStart") return <ReadyToStart />;
 

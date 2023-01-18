@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { quizRef, getQuestionsTEST } from "../../firebase/firebaseConnection";
+import { quizRef } from "../../firebase/firebaseConnection";
 import { changeStatus } from "../../store/quizSlice";
 import { QuizScreen } from "../styled/quzScreen.styled";
 import { fetchQuestions, setQuestions } from "../../store/quizSlice";
@@ -9,7 +9,6 @@ import { collection, getDoc, getDocs, updateDoc, doc } from "firebase/firestore"
 function Countdown() {
   const [countdown, setCountdown] = useState(3);
   const dispatch = useDispatch();
-  const [quiz, setQuiz] = useState([]);
 
   let countdownTimer = setTimeout(function () {
     if (countdown <= 1) {
@@ -19,21 +18,17 @@ function Countdown() {
     }
   }, 1000);
 
-  // console.log(quiz);
-
   useEffect(() => {
     const getQuestionsFromDb = async () => {
       const querySnapshot = await getDocs(quizRef);
       console.log("querySnapshot length", querySnapshot.docs.length);
       if (querySnapshot.docs.length === 0) {
-        console.log("getting questions from fetch and saving to store");
+        console.log("getting questions from API and saving to store and export to DB");
         dispatch(fetchQuestions());
       } else {
         console.log("adding to store");
         querySnapshot.forEach((doc) => {
           setQuestions(doc.data());
-          setQuiz({ id: doc.id, ...doc.data() });
-          // doc.data() is never undefined for query doc snapshots
         });
       }
     };
@@ -41,19 +36,11 @@ function Countdown() {
   }, []);
 
   useEffect(() => {
-// console.log(
-  // getQuestionsTEST().then(info => console.log(info))
-  // )
-
-
     return () => {
       clearTimeout(countdownTimer);
       // console.log("cleared");
     };
   }, []);
-
-
-
 
   return (
     <QuizScreen c="white" bc="#56bab7">

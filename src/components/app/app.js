@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { useAuth } from "../../store/useAuth";
 import { loginUser } from "../../store/userSlice";
 import { useEffect } from "react";
-import { fetchQuestions } from "../../store/quizSlice";
+
 import RegisterPage from "../loginPage/registerPage";
 import SignInPage from "../loginPage/signInPage";
 
@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     getDataFromLS();
-    dispatch(fetchQuestions());
+  
   }, []);
 
   return (

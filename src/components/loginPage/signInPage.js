@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { loginUser } from "../../store/userSlice";
 import { RegisterSignInForm } from "../styled/registerSignInForm.styled";
 import { useNavigate } from "react-router-dom";
+import { addUserToDB } from "../../firebase/firebaseConnection";
 
 const SignInPage = () => {
   const navigate = useNavigate();
@@ -28,8 +29,14 @@ const onHandleSubmit  = (data) =>{
        userName: user.displayName,
        userImage: "https://random.imagecdn.app/150/150",
        userId: user.uid,
+       readyToStart: false,
+       currentQuestion:0,
+       score:0,
+       
+
      };
     dispatch(loginUser(userData));
+    addUserToDB(userData);
     localStorage.setItem("userData", JSON.stringify(userData));
     alert(`Wellcome, ${user.displayName} ` );
     navigate("/");

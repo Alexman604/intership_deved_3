@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { changeStatus } from "../../store/quizSlice";
-import { collection, getDoc, getDocs, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { changeStatus, deleteQuestionsFromStore } from "../../store/quizSlice";
+import { getDocs, doc, deleteDoc } from "firebase/firestore";
 import { quizRef } from "../../firebase/firebaseConnection";
 import { db } from "../../firebase/firebase";
 const Results = () => {
@@ -17,22 +17,23 @@ const Results = () => {
     querySnapshot.forEach((doc) => {
       console.log("deleting ",doc.id)
        deleQuestion(doc.id);
-      //  setQuiz({ id: doc.id, ...doc.data() });
-      // doc.data() is never undefined for query doc snapshots
+
     });
   };
 
-  const updFirestoreQuiz = () => {
+  const updDBQuiz = () => {
     //delete all questions from firestore
     console.log("questions deleted");
+
       deleteQuestionsFromDb();
+      deleteQuestionsFromStore()
      dispatch(changeStatus("beforeStart"));
   };
 
 
   return (
     <div>
-      <button onClick={() => updFirestoreQuiz()}>START</button>;
+      <button onClick={() => updDBQuiz()}>START</button>;
     </div>
   );
 };
