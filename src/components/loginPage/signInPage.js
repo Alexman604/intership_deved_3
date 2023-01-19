@@ -30,10 +30,8 @@ const onHandleSubmit  = (data) =>{
        userImage: "https://random.imagecdn.app/150/150",
        userId: user.uid,
        readyToStart: false,
-       currentQuestion:0,
+       answered:false,
        score:0,
-       
-
      };
     dispatch(loginUser(userData));
     addUserToDB(userData);

@@ -1,8 +1,8 @@
 import { QuizScreen } from "../styled/quzScreen.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { changeStatus } from "../../store/quizSlice";
-import { updUserReadyToStart } from "../../firebase/firebaseConnection";
 
+import { updUserReadyToStart } from "../../firebase/firebaseConnection";
 import { useAuth } from "../../store/useAuth";
 
 function ReadyToStart() {

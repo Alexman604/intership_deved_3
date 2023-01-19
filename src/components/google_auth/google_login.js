@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { loginUser } from "../../store/userSlice";
 import { useNavigate } from "react-router-dom";
+import { addUserToDB } from "../../firebase/firebaseConnection";
 
 const GoogleLogin = () => {
   const navigate = useNavigate();
@@ -17,9 +18,13 @@ const GoogleLogin = () => {
         userName: name,
         userImage: picture,
         userId: sub,
+        readyToStart: false,
+        answered: false,
+        score: 0,
       };
       dispatch(loginUser(userData));
       localStorage.setItem("userData", JSON.stringify(userData));
+      addUserToDB(userObject)
       navigate("/");
     }
   };

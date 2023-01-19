@@ -23,5 +23,6 @@ export const QuizCard = styled.div`
     width: 90%;
     background-color: #232327;
     border: 1px solid #56bab7;
+    cursor: ${({ cursor }) => cursor};
   }
 `;

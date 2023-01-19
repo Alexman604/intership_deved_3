@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 import RegisterPage from "../loginPage/registerPage";
 import SignInPage from "../loginPage/signInPage";
+import { addUserToDB} from "../../firebase/firebaseConnection";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,14 +19,15 @@ function App() {
   const getDataFromLS = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
-      const { userName, userImage, userId } = userData;
-      dispatch(loginUser({ userName: userName, userImage: userImage, userId: userId }));
+      // console.log(userData);
+
+      dispatch(loginUser(userData));
+      addUserToDB(userData);
     }
   };
 
   useEffect(() => {
     getDataFromLS();
-  
   }, []);
 
   return (

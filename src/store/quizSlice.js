@@ -4,9 +4,11 @@ import axios from "axios";
 
 const initialState = {
   questions: [],
-  scores: 0,
+  allAnswered: false,
+  meAnswered:false,
   quizStatus: "beforeStart",
   quizLoadingStatus: "idle",
+
 };
 
 export const fetchQuestions = createAsyncThunk("questions/fetchQuestions", async () => {
@@ -19,15 +21,18 @@ export const quizSlice = createSlice({
   name: "questions",
   initialState,
   reducers: {
-    addScores: (state) => {
-      state.scores = state.scores + 1;
+    changeMeAnswered: (state, action) => {
+      state.meAnswered = action.payload;
+    },
+    changeAllAnswered: (state, action) => {
+      state.allAnswered = action.payload;
     },
     changeStatus: (state, action) => {
       console.log(action.payload);
       state.quizStatus = action.payload;
     },
     setQuestions: (state, action) => {
-      console.log(action.payload)
+      console.log(action.payload);
       state.questions = [...state.questions, action.payload];
     },
     deleteQuestionsFromStore: (state) => {
@@ -53,4 +58,4 @@ export const quizSlice = createSlice({
 const { actions, reducer } = quizSlice;
 
 export default reducer;
-export const { changeStatus, addScores, setQuestions, deleteQuestionsFromStore } = actions;
+export const { changeStatus, changeMeAnswered, changeAllAnswered,  setQuestions, deleteQuestionsFromStore } = actions;

@@ -46,3 +46,8 @@ export const updUserReadyToStart = async(id, state) =>{
   const userDoc = doc(db, "users", id);
   await updateDoc(userDoc, { readyToStart: state });
 }
+
+export const updUserAnswered = async (id, state) => {
+  const userDoc = doc(db, "users", id);
+  await updateDoc(userDoc, { answered: state });
+};

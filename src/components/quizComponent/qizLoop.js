@@ -1,27 +1,57 @@
 import { useEffect, useState } from "react";
-import { changeStatus, addScores } from "../../store/quizSlice";
+import { changeStatus, changeAllAnswered } from "../../store/quizSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { QuizCard } from "../styled/quizCard.styled";
 import { QuizProgress } from "../styled/quizProgress.styled";
 import { GreenRight } from "../styled/quizProgress.styled";
 import { RedWrong } from "../styled/quizProgress.styled";
+import { useAuth } from "../../store/useAuth";
+import { updUserAnswered } from "../../firebase/firebaseConnection";
+import { updUserReadyToStart } from "../../firebase/firebaseConnection";
 
 function QizLoop() {
   const dispatch = useDispatch();
   const questions = useSelector((state) => state.questions.questions);
+  const allAnswered = useSelector((state) => state.questions.allAnswered);
+  const meAnswered = useSelector((state) => state.questions.meAnswered);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [progress, setProgress] = useState([]);
-  const [result, setResult] = useState(0);
+  const [done, setDone] = useState(false);
+  const { userIdLogged } = useAuth();
 
+  useEffect(() => {
+    if (questions) {
+      const inputIndex = Math.floor(Math.random() * 4);
+      const answersList = questions[currentQuestionIndex].incorrect_answers.map((item) => item);
+      answersList.splice(inputIndex, 0, questions[currentQuestionIndex].correct_answer);
+      setAnswers(answersList);
+    } else return <div>spinner</div>;
+  }, [currentQuestionIndex]);
 
-   console.log(questions);
+  useEffect(() => {
+    updUserReadyToStart(userIdLogged, false);
+  }, []);
 
-  console.log(answers);
+  // console.log(questions);
+
+  // console.log(answers);
+
+  if (allAnswered && done) {
+    if (currentQuestionIndex === questions.length - 1) {
+      dispatch(changeStatus("result"));
+    } else {
+      setDone(false);
+      dispatch(changeAllAnswered(false));
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
+  }
 
   const onButton = (e) => {
+    setDone(true);
+    updUserAnswered(userIdLogged, true);
+    //
     if (e.target.name === questions[currentQuestionIndex].correct_answer) {
-      dispatch(addScores());
       setProgress((progress) => [...progress, true]);
 
       // console.log("progress scores", progress);
@@ -29,11 +59,7 @@ function QizLoop() {
       setProgress((progress) => [...progress, false]);
       // console.log("progress scores", progress);
     }
-    if (currentQuestionIndex === questions.length - 1) {
-      // console.log("progress scores", progress);
-      // console.log("scores", result);
-      dispatch(changeStatus("result"));
-    } else setCurrentQuestionIndex(currentQuestionIndex + 1);
+
     // console.log("progress", progress);
   };
 
@@ -49,7 +75,7 @@ function QizLoop() {
     }
     return arr.map((answ, index) => {
       return (
-        <button key={index} name={answ} onClick={onButton}>
+        <button key={index} name={answ} onClick={onButton} disabled={done}>
           {answ}
         </button>
       );
@@ -58,22 +84,11 @@ function QizLoop() {
 
   const buttons = renderButtons(answers);
   const progInfo = renderProgInfo(progress);
-  useEffect(() => {
-    if (questions) {
-      const inputIndex = Math.floor(Math.random() * 4);
-      const answersList = questions[currentQuestionIndex].incorrect_answers.map((item) => item);
-      answersList.splice(inputIndex, 0, questions[currentQuestionIndex].correct_answer);
-      setAnswers(answersList);
-    }
-    return () => {
-      // console.log(result);
-    };
-  }, [currentQuestionIndex]);
 
   return (
     <>
       <QuizProgress>{progInfo}</QuizProgress>
-      <QuizCard>
+      <QuizCard cursor={done ? "not-allowed" : "pointer"}>
         <p>{questions[currentQuestionIndex].question}</p>;{buttons}
       </QuizCard>
     </>
