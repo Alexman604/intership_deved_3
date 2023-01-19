@@ -5,19 +5,19 @@ import { changeStatus } from "../../store/quizSlice";
 import { QuizScreen } from "../styled/quzScreen.styled";
 import { fetchQuestions, setQuestions } from "../../store/quizSlice";
 import { collection, getDoc, getDocs, updateDoc, doc } from "firebase/firestore";
+import { useAuth } from "../../store/useAuth";
+import { updUserReadyToStart } from "../../firebase/firebaseConnection";
 
 function Countdown() {
-  const [countdown, setCountdown] = useState(3);
+
   const dispatch = useDispatch();
 
-  let countdownTimer = setTimeout(function () {
-    if (countdown <= 1) {
-      dispatch(changeStatus("start"));
-    } else {
-      setCountdown(countdown - 1);
-    }
-  }, 1000);
+  const { userIdLogged } = useAuth();
 
+  const onCancel = () => {
+    dispatch(changeStatus("beforeStart"));
+    updUserReadyToStart(userIdLogged, false);
+  };
   useEffect(() => {
     const getQuestionsFromDb = async () => {
       const querySnapshot = await getDocs(quizRef);
@@ -38,8 +38,10 @@ function Countdown() {
   }, []);
 
   useEffect(() => {
+
+
     return () => {
-      clearTimeout(countdownTimer);
+      // clearTimeout(countdownTimer);
       // console.log("cleared");
     };
   }, []);
@@ -47,8 +49,8 @@ function Countdown() {
   return (
     <QuizScreen c="white" bc="#56bab7">
       <p>Ready to start The Quiz</p>
-      <button onClick={() => dispatch(changeStatus("beforeStart"))}>CANCEL</button>
-      <p>{countdown}</p>
+      <button onClick={() => onCancel()}>CANCEL</button>
+      {/* <p>{countdown}</p> */}
     </QuizScreen>
   );
 }

@@ -41,3 +41,8 @@ export const removeUserFromDB = async (id) => {
   await deleteDoc(doc(db, "users", id));
   // await await setDoc(doc(db, "users", user.userId), user);
 };
+
+export const updUserReadyToStart = async(id, state) =>{
+  const userDoc = doc(db, "users", id);
+  await updateDoc(userDoc, { readyToStart: state });
+}
