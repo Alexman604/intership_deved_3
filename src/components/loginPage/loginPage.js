@@ -15,9 +15,7 @@ function LoginPage() {
           <span>Sign in with e-mail</span>
         </Link>
         <Link to="/registration">
-          <span >
-            Register e-mail
-          </span>
+          <span>Register e-mail</span>
         </Link>
       </Container>
     </Container>

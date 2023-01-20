@@ -7,6 +7,7 @@ import { onSnapshot } from "firebase/firestore";
 import { useAuth } from "../../store/useAuth";
 import { v4 as uuidv4 } from "uuid";
 import Message from "../message/message";
+import Loading from "../styled/loading.styled";
 
 function ChatComponent() {
   const [messages, setMessages] = useState([]);
@@ -26,12 +27,12 @@ function ChatComponent() {
 
   const renderMessages = (arr) => {
     if (arr.length === 0) {
-      return <h5>"No messages found"</h5>;
+      return <Loading />;
+    } else {
+      return arr[0].map(({ postId, ...props }) => {
+        return <Message key={postId} userIdLogged={userIdLogged} {...props} />;
+      });
     }
-
-    return arr[0].map(({ postId, ...props }) => {
-      return <Message key={postId} userIdLogged={userIdLogged} {...props} />;
-    });
   };
 
   const elements = renderMessages(messages);

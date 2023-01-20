@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const QuizSection = styled.div`
   box-sizing: border-box;
   min-height: ${({ minh }) => minh};

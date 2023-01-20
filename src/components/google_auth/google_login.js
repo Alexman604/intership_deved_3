@@ -24,7 +24,7 @@ const GoogleLogin = () => {
       };
       dispatch(loginUser(userData));
       localStorage.setItem("userData", JSON.stringify(userData));
-      addUserToDB(userObject)
+      addUserToDB(userData);
       navigate("/");
     }
   };

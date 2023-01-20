@@ -7,10 +7,9 @@ import { useDispatch } from "react-redux";
 import { useAuth } from "../../store/useAuth";
 import { loginUser } from "../../store/userSlice";
 import { useEffect } from "react";
-
 import RegisterPage from "../loginPage/registerPage";
 import SignInPage from "../loginPage/signInPage";
-import { addUserToDB} from "../../firebase/firebaseConnection";
+import { addUserToDB } from "../../firebase/firebaseConnection";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,8 +18,6 @@ function App() {
   const getDataFromLS = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
-      // console.log(userData);
-
       dispatch(loginUser(userData));
       addUserToDB(userData);
     }

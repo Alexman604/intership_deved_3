@@ -22,10 +22,8 @@ function QizLoop() {
   const { userIdLogged } = useAuth();
 
   const createAnswersList = () => {
-    
     const answersList = questions[currentQuestionIndex].incorrect_answers.map((item) => item);
     answersList.splice(Math.floor(Math.random() * 4), 0, questions[currentQuestionIndex].correct_answer);
-
     const buttons = answersList.map((answ, index) => {
       return (
         <button key={index} name={answ} onClick={onButton} disabled={done}>
@@ -33,7 +31,6 @@ function QizLoop() {
         </button>
       );
     });
-   
     setAnswers(buttons);
   };
 
@@ -42,14 +39,6 @@ function QizLoop() {
       createAnswersList();
     }
   }, [questions, currentQuestionIndex, done]);
-
-  useEffect(() => {
-    updUserReadyToStart(userIdLogged, false);
-  }, []);
-
-  // console.log(questions);
-
-  // console.log(answers);
 
   if (allAnswered && done) {
     if (currentQuestionIndex === questions.length - 1) {
@@ -62,12 +51,12 @@ function QizLoop() {
   }
 
   const onButton = (e) => {
-    setDone(true);
     updUserAnswered(userIdLogged, true);
+    setDone(true);
     //
     if (e.target.name === questions[currentQuestionIndex].correct_answer) {
       setProgress((progress) => [...progress, true]);
-        updUserScore(userIdLogged, "plusone");
+      updUserScore(userIdLogged, "plusone");
     } else {
       setProgress((progress) => [...progress, false]);
     }
@@ -85,15 +74,12 @@ function QizLoop() {
 
   const progInfo = renderProgInfo(progress);
 
-  console.log(answers);
-  console.log(currentQuestionIndex);
-
   return (
     <>
       <QuizProgress>{progInfo}</QuizProgress>
       <QuizCard cursor={done ? "not-allowed" : "pointer"}>
         <p>{questions[currentQuestionIndex].question}</p>
-        {!answers ? <Loading/> : answers}
+        {!answers ? <Loading /> : answers}
       </QuizCard>
     </>
   );

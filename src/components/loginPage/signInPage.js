@@ -19,41 +19,31 @@ const SignInPage = () => {
     reset,
   } = useForm();
 
-const onHandleSubmit  = (data) =>{
-    // console.log(data);
- signInWithEmailAndPassword(auth, data.email, data.password)
-   .then((userCredential) => {
-     // Signed in
-     const user = userCredential.user;
-     const userData = {
-       userName: user.displayName,
-       userImage: "https://random.imagecdn.app/150/150",
-       userId: user.uid,
-       readyToStart: false,
-       answered:false,
-       score:0,
-     };
-    dispatch(loginUser(userData));
-    addUserToDB(userData);
-    localStorage.setItem("userData", JSON.stringify(userData));
-    alert(`Wellcome, ${user.displayName} ` );
-    navigate("/");
-
-     // ...
-   })
-   .catch((error) => {
-     const errorCode = error.code;
-     const errorMessage = error.message;
-
-    console.log(errorMessage);
-     alert(errorMessage, "code:", errorCode);
-     reset();
-   });
-
-
-
-    
-  }
+  const onHandleSubmit = (data) => {
+    signInWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const userData = {
+          userName: user.displayName,
+          userImage: "https://random.imagecdn.app/150/150",
+          userId: user.uid,
+          readyToStart: false,
+          answered: false,
+          score: 0,
+        };
+        dispatch(loginUser(userData));
+        addUserToDB(userData);
+        localStorage.setItem("userData", JSON.stringify(userData));
+        alert(`Wellcome, ${user.displayName} `);
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage, "code:", errorCode);
+        reset();
+      });
+  };
 
   return (
     <Container minh="calc(100vh - 110px)">
@@ -119,5 +109,3 @@ const onHandleSubmit  = (data) =>{
 };
 
 export default SignInPage;
-
-

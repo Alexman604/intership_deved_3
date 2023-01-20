@@ -19,11 +19,9 @@ export const Container = styled.div`
     display: none;
   }
   span {
-
-
     color: ${({ color }) => color};
 
-    &:hover{
+    &:hover {
       cursor: pointer;
       color: grey;
     }

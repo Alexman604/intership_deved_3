@@ -14,10 +14,8 @@ function Header() {
   const auth = getAuth();
   const { isAuth, userIdLogged } = useAuth();
 
-  // console.log(userIdLogged);
-
   const onLogOut = () => {
-    removeUserFromDB(userIdLogged); 
+    removeUserFromDB(userIdLogged);
     dispatch(logoutUser());
     localStorage.removeItem("userData");
 

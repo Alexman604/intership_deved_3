@@ -12,7 +12,6 @@ export const RegisterSignInForm = styled.form`
   color: #56bab7;
   border-radius: 5px;
   padding: 10px;
-  /* height: 400px; */
 
   div {
     display: flex;
@@ -43,7 +42,6 @@ export const RegisterSignInForm = styled.form`
       font-size: 14px;
       vertical-align: top;
       color: red;
-      /* position: absolute; */
     }
   }
   button {

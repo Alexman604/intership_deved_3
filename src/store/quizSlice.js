@@ -5,15 +5,14 @@ import axios from "axios";
 const initialState = {
   questions: [],
   allAnswered: false,
-  meAnswered:false,
+  meAnswered: false,
   quizStatus: "beforeStart",
   quizLoadingStatus: "idle",
-
 };
 
 export const fetchQuestions = createAsyncThunk("questions/fetchQuestions", async () => {
   const { data } = await axios.get("https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple");
-   addQuizToDb(data.results);
+  addQuizToDb(data.results);
   return data;
 });
 
@@ -28,11 +27,9 @@ export const quizSlice = createSlice({
       state.allAnswered = action.payload;
     },
     changeStatus: (state, action) => {
-      console.log(action.payload);
       state.quizStatus = action.payload;
     },
     setQuestions: (state, action) => {
-      console.log(action.payload);
       state.questions = [...state.questions, action.payload];
     },
     deleteQuestionsFromStore: (state) => {
@@ -58,4 +55,4 @@ export const quizSlice = createSlice({
 const { actions, reducer } = quizSlice;
 
 export default reducer;
-export const { changeStatus, changeMeAnswered, changeAllAnswered,  setQuestions, deleteQuestionsFromStore } = actions;
+export const { changeStatus, changeMeAnswered, changeAllAnswered, setQuestions, deleteQuestionsFromStore } = actions;

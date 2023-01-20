@@ -1,6 +1,5 @@
 import { Container } from "../styled/container.styled";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-
 import { useForm } from "react-hook-form";
 import { RegisterSignInForm } from "../styled/registerSignInForm.styled";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +16,6 @@ const RegisterPage = () => {
   } = useForm();
 
   async function onHandleSubmit(data) {
-    console.log(data);
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password, data.name);
 
@@ -27,16 +25,10 @@ const RegisterPage = () => {
       updateProfile(auth.currentUser, {
         displayName: data.name,
       })
-        .then(() => {
-          console.log("updated name");
-          // ...
-        })
-        .catch((error) => {
-          // An error occurred
-          // ...
-        });
+        .then(() => {})
+        .catch((error) => {});
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       alert("User created failed");
       alert(error);
     }

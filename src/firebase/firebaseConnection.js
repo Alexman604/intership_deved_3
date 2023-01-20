@@ -23,7 +23,6 @@ export async function addQuestion(question) {
 }
 
 export function addQuizToDb(data) {
-  console.log("adding question to DB from Slice fetching", data);
   data.map((question) => {
     addQuestion({ ...question });
   });
@@ -34,9 +33,7 @@ export const addUserToDB = async (user) => {
 };
 
 export const removeUserFromDB = async (id) => {
-  console.log(id);
   await deleteDoc(doc(db, "users", id));
-  // await await setDoc(doc(db, "users", user.userId), user);
 };
 
 export const updUserReadyToStart = async (id, state) => {
@@ -68,7 +65,6 @@ export const deleQuestion = async (id) => {
 export const deleteQuestionsFromDb = async () => {
   const querySnapshot = await getDocs(quizRef);
   querySnapshot.forEach((doc) => {
-    console.log("deleting ", doc.id);
     deleQuestion(doc.id);
   });
 };
