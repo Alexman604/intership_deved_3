@@ -12,7 +12,7 @@ const initialState = {
 };
 
 export const fetchQuestions = createAsyncThunk("questions/fetchQuestions", async () => {
-  const { data } = await axios.get("https://opentdb.com/api.php?amount=3&difficulty=medium&type=multiple");
+  const { data } = await axios.get("https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple");
    addQuizToDb(data.results);
   return data;
 });

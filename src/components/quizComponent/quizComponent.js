@@ -16,12 +16,13 @@ function QuizComponent() {
   const dispatch = useDispatch();
 
   const checkUsersStatus = () => {
-    if (users.length > 1) {
+    if (users.length > 0) {
       /////ready to start quiz
       let listOfUsersReady = users.map((user) => user.readyToStart);
      // console.log(listOfUsersReady);
 
       if (listOfUsersReady.every(Boolean)) {
+        console.log(listOfUsersReady.every(Boolean));
         dispatch(changeStatus("start"));
        // console.log("Pushing start  quiz");
       }
@@ -52,7 +53,7 @@ function QuizComponent() {
 
   if (quizStatus === "start") return <QizLoop />;
 
-  if (quizStatus === "result") return <Results />;
+  if (quizStatus === "result") return <Results user = {users}/>;
 }
 
 export default QuizComponent;

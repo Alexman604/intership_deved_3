@@ -1,35 +1,23 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { changeStatus, deleteQuestionsFromStore } from "../../store/quizSlice";
-import { getDocs, doc, deleteDoc } from "firebase/firestore";
-import { quizRef } from "../../firebase/firebaseConnection";
-import { db } from "../../firebase/firebase";
-const Results = () => {
+import { useAuth } from "../../store/useAuth";
+import { deleteQuestionsFromDb, updUserScore } from "../../firebase/firebaseConnection";
+
+const Results = ({...users}) => {
+console.log(users)
+
   const dispatch = useDispatch();
-
-  const deleQuestion = async (id) => {
-    const qDoc = doc(db, "quiz", id);
-    await deleteDoc(qDoc);
-  };
-  
-  const deleteQuestionsFromDb = async () => {
-    const querySnapshot = await getDocs(quizRef);
-    querySnapshot.forEach((doc) => {
-      console.log("deleting ",doc.id)
-       deleQuestion(doc.id);
-
-    });
-  };
+  const { userIdLogged } = useAuth();
 
   const updDBQuiz = () => {
     //delete all questions from firestore
     console.log("questions deleted");
-
-      deleteQuestionsFromDb();
-      dispatch(deleteQuestionsFromStore())
-     dispatch(changeStatus("beforeStart"));
+    updUserScore(userIdLogged, "reset");
+    deleteQuestionsFromDb();
+    dispatch(deleteQuestionsFromStore());
+    dispatch(changeStatus("beforeStart"));
   };
-
 
   return (
     <div>

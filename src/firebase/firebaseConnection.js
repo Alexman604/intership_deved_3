@@ -11,12 +11,10 @@ export const addMessage = async (id = "1heF8ElApQWjaRItKGQN", object) => {
   await updateDoc(msg, { list: [...docSnap.data().list, object] });
 };
 
-
 export const getQuestionsFromDb = async () => {
   const querySnapshot = await getDocs(quizRef);
   return querySnapshot.forEach((doc) => {
     return { id: doc.id, ...doc.data() };
-   
   });
 };
 
@@ -25,7 +23,6 @@ export async function addQuestion(question) {
 }
 
 export function addQuizToDb(data) {
-
   console.log("adding question to DB from Slice fetching", data);
   data.map((question) => {
     addQuestion({ ...question });
@@ -37,17 +34,41 @@ export const addUserToDB = async (user) => {
 };
 
 export const removeUserFromDB = async (id) => {
-  console.log(id)
+  console.log(id);
   await deleteDoc(doc(db, "users", id));
   // await await setDoc(doc(db, "users", user.userId), user);
 };
 
-export const updUserReadyToStart = async(id, state) =>{
+export const updUserReadyToStart = async (id, state) => {
   const userDoc = doc(db, "users", id);
   await updateDoc(userDoc, { readyToStart: state });
-}
+};
 
 export const updUserAnswered = async (id, state) => {
   const userDoc = doc(db, "users", id);
   await updateDoc(userDoc, { answered: state });
+};
+
+export const updUserScore = async (id, state) => {
+  const userDoc = doc(db, "users", id);
+  const docSnap = await getDoc(userDoc);
+  if (state === "plusone") {
+    await updateDoc(userDoc, { score: docSnap.data().score + 1 });
+  }
+  if (state === "reset") {
+    await updateDoc(userDoc, { score: 0 });
+  }
+};
+
+export const deleQuestion = async (id) => {
+  const qDoc = doc(db, "quiz", id);
+  await deleteDoc(qDoc);
+};
+
+export const deleteQuestionsFromDb = async () => {
+  const querySnapshot = await getDocs(quizRef);
+  querySnapshot.forEach((doc) => {
+    console.log("deleting ", doc.id);
+    deleQuestion(doc.id);
+  });
 };
