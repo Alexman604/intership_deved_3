@@ -17,16 +17,16 @@ function QuizComponent() {
 
   const checkUsersStatus = () => {
     if (users.length > 0) {
-      /////ready to start quiz
+     
       let listOfUsersReady = users.map((user) => user.readyToStart);
-     // console.log(listOfUsersReady);
+     
 
       if (listOfUsersReady.every(Boolean)) {
         console.log(listOfUsersReady.every(Boolean));
         dispatch(changeStatus("start"));
-       // console.log("Pushing start  quiz");
+     
       }
-      ///answered
+    
       let listOfUsersAnswered = users.map((user) => user.answered);
       if (listOfUsersAnswered.every(Boolean)) {
       console.log("switching answered in bd and lockal state")
@@ -53,7 +53,7 @@ function QuizComponent() {
 
   if (quizStatus === "start") return <QizLoop />;
 
-  if (quizStatus === "result") return <Results user = {users}/>;
+  if (quizStatus === "result") return <Results users = {users}/>;
 }
 
 export default QuizComponent;

@@ -41,7 +41,7 @@ function QizLoop() {
     if (questions.length !== 0) {
       createAnswersList();
     }
-  }, [questions, currentQuestionIndex]);
+  }, [questions, currentQuestionIndex, done]);
 
   useEffect(() => {
     updUserReadyToStart(userIdLogged, false);
