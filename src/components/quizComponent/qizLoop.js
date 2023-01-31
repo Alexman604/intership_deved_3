@@ -7,7 +7,7 @@ import { GreenRight } from "../styled/quizProgress.styled";
 import { RedWrong } from "../styled/quizProgress.styled";
 import { useAuth } from "../../store/useAuth";
 import { updUserAnswered, updUserScore } from "../../firebase/firebaseConnection";
-import { updUserReadyToStart } from "../../firebase/firebaseConnection";
+import { decode } from "html-entities";
 import Loading from "../styled/loading.styled";
 
 function QizLoop() {
@@ -27,7 +27,7 @@ function QizLoop() {
     const buttons = answersList.map((answ, index) => {
       return (
         <button key={index} name={answ} onClick={onButton} disabled={done}>
-          {answ}
+          {decode(answ)}
         </button>
       );
     });
@@ -78,7 +78,7 @@ function QizLoop() {
     <>
       <QuizProgress>{progInfo}</QuizProgress>
       <QuizCard cursor={done ? "not-allowed" : "pointer"}>
-        <p>{questions[currentQuestionIndex].question}</p>
+        <p>{decode(questions[currentQuestionIndex].question)}</p>
         {!answers ? <Loading /> : answers}
       </QuizCard>
     </>
